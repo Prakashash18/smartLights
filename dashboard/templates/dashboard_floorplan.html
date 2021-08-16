@@ -1,0 +1,605 @@
+<head>
+    {% load bootstrap5 %}
+
+    <meta charset="UTF-8">
+    <title>Industrial IoT Centre Smart Lights</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script> -->
+
+    {% load static %}  
+    
+    <!-- <script src="{% static '/jquery-ui.js' %}" type="text/javascript"></script>   -->
+    <script src="{% static '/jquery.min.js' %}" type="text/javascript"></script>  
+
+    <!-- <script src="{% static '/js.cookie.mjs' %}" type="text/javascript"></script>   -->
+    <script src="{% static '/js.cookie.js' %}" type="text/javascript"></script>  
+    <script src="{% static '/jquery-ui.min.js' %}" type="text/javascript"></script>  
+
+
+    <link href="{% static '/bootstrap-5.0.0/css/bootstrap.min.css' %}" rel="stylesheet"></link>  
+    <script src="{% static '/bootstrap-5.0.0/js/bootstrap.min.js' %}" type="text/javascript"></script>  
+
+    <!-- <script type="module" src="/Users/prakash/Desktop/hello_django/dashboard/templates/js.cookie.mjs"></script> -->
+    <!-- <script nomodule defer src="/Users/prakash/Desktop/hello_django/dashboard/templates/js.cookie.js"></script> -->
+    <!-- <script src="/Users/prakash/Desktop/hello_django/dashboard/templates/bootstrap-5.0.0/css/bootstrap.css"></script> -->
+    <!-- <script src="/Users/prakash/Desktop/hello_django/dashboard/templates/bootstrap-5.0.0/js/bootstrap.js"></script> -->
+    <style>
+        .font{color: white}
+        .red{background-color:red}
+        .green{background-color:green}
+        .blue{background-color:blue}
+        .pink{background-color:pink}
+        .cyan{background-color:cyan}
+        .yellow{background-color:yellow}
+        .purple{background-color:purple}
+        .white{background-color:white}
+        #main_div{
+            width: 100%;
+            height: 80%;
+            margin: auto;
+            border: 2;
+            border-style: ridge;
+            background-color: #2e2d2c;
+        }
+        h2{
+            width: 100%;
+            margin: auto;
+        }
+        #downlights{
+            width: 100%;
+            height: 42%;
+            border-style: ridge;
+            margin: 3;
+            border-left: 10px solid white;
+            border-top: 10px solid white;
+            color: whitesmoke;
+            text-align: center;
+            padding-top: 24%;
+            font-family: "Copperplate";
+            font-size: larger;
+
+        }
+
+        #lightshow_parent{
+            width: 100%;
+            height: 54%;
+            margin: 3;
+            border-left: 10px solid white;
+            border-bottom: 10px solid white;
+        }
+        #lightshow{
+            width: 70%;
+            height: 100%;
+            margin: 0;
+            border-style: ridge;
+            float: left;
+            color: whitesmoke;
+            text-align: center;
+            padding-top: 24%;
+            font-family: "Copperplate";
+            font-size: larger;
+        }
+        #redLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: red;
+        }
+        #greenLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: green;
+        }
+        #blueLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: blue;
+        }
+        #pinkLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: pink;
+
+        }
+        #cyanLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: cyan;
+
+        }
+        #yellowLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: yellow;
+
+        }
+        #purpleLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: purple;
+
+        }
+        #whiteLed{
+            float: right;
+            width: 30%;
+            height: 12.5%;
+            border-style: ridge;
+            background-color: white;
+
+        }
+        #rightDiv{
+            float: right;
+            width: 70%;
+            height: 100%;
+        }
+        #leftDiv{
+            float: left;
+            width: 30%;
+            height: 100%;
+        }
+        #hybridfarming{
+            width:98%;
+            height: 20%;
+            border-style: ridge;
+            margin: 4px;
+            border-top: 10px solid white;
+            border-right: 10px solid white;
+            color: whitesmoke;
+            text-align: center;
+            padding-top: 2%;
+            font-family: "Copperplate";
+            font-size: medium;
+
+        }
+        #smartplanning{
+            float: left;
+            width: 98%;
+            height: 10%;
+            border-style: ridge;
+            margin-left: 4px;
+            border-right: 10px solid white;
+            color: whitesmoke;
+            text-align: center;
+            padding-top: 1%;
+            font-family: "Copperplate";
+            font-size: small;
+        }
+        #smartmonitoring{
+            float: left;
+            width: 98%;
+            height: 66%;
+            border-style: ridge;
+            margin-left: 4px;
+            border-right: 10px solid white;
+            border-bottom: 10px solid white;
+            color: whitesmoke;
+            text-align: center;
+            padding-top: 10%;
+            font-family: "Copperplate";
+            font-size: large;
+            
+        }
+        #door{
+            float: none;
+            padding-top: 30%;
+        }
+        /* 
+        #on_activated {
+            display: none; 
+        }
+
+        #off_activated {
+            display: none; 
+        } */
+
+
+    </style>
+  </head>
+  <body style="background-color:black;">
+
+    <!-- <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div> -->
+      <!-- look here for telnet to id mapping -->
+      <h2 style="color: whitesmoke;"><i>Industrial IoT Centre Lighting Control</i></h2> 
+    <button id="AllOn" type="button" class="btn btn-primary" style="float: right; padding: 2px; margin-left: 5px;margin-right: 5px;">All On
+    </button>
+      <button id="AllOff" type="button" class="btn btn-primary" style="float: right; padding: 2px; margin-left: 5px;margin-right: 5px;">All Off
+        <!-- <span id="off_activated" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none" ></span> -->
+    </button><br><br>
+    
+      <div id = "main_div">
+          <div id="leftDiv">
+            <div id="downlights"><p>Smart Utilities</p></div>
+            <div id="lightshow_parent">
+                <div id="lightshow"><p>Light Show</p>
+                    <div id='door'>
+                        <p> <b color='White'>Entrance</b></p>
+                     </div>
+                </div>
+                <div id="redLed"></div>
+                <div id="greenLed"></div>
+                <div id="blueLed"></div>
+                <div id="pinkLed"></div>
+                <div id="cyanLed"></div>
+                <div id="yellowLed"></div>
+                <div id="purpleLed"></div>
+                <div id="whiteLed"></div>
+                
+            </div>
+           
+          </div>
+          <div id="rightDiv">
+            <div id="hybridfarming" >Smart Analytics Zone</div>
+            <div id="smartplanning">Wall Divider</div>
+            <div id="smartmonitoring">Smart Classroom</div>
+          </div>
+         
+      </div>
+    
+    
+    {% block javascript %}
+
+    <script>
+        
+        //states of each light
+        var downlights_on = false;
+        var lightshow_on = false;
+        var hybridfarming_on = false;
+        var smartplanning_on = false;
+        var smartmonitoring_on = false;
+        var red_on = false;
+        var green_on = false;
+        var blue_on = false;
+        var pink_on = false;
+        var cyan_on = false;
+        var yello_on = false;
+        var purple_on = false;
+        var white_on = false;
+
+        $(document).ready(function(){
+            // alert("I'm here");
+            $("#AllOn").click(function(){
+                // var items = ['#downlights', '#lightshow','#hybridfarming', '#smartmonitoring', '#smartplanning' ]
+                // $("#on_activated").removeAttr('hidden'); 
+                // $('#on_activated').show()
+
+                // let spinner = document.getElementById("on_activated");
+                // console.log(spinner);
+                // spinner.style.display = 'block'; //'hidden'
+                $("#AllOn").append("<span id=\"on_activated\"  class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" ></span>")
+
+                setTimeout(function (){
+
+                    makeRequest("downlights_turn_on",  "#downlights", false);
+
+                }, 1000);
+
+
+                setTimeout(function (){
+
+                    makeRequest("lightShow_turn_on", "#lightshow", false);
+
+                }, 1000);
+
+                setTimeout(function (){
+
+                    makeRequest("onR5to6", "#hybridfarming", false );
+
+                }, 1000);
+                setTimeout(function (){
+
+                    makeRequest("onR1to4", "#smartmonitoring", false );
+
+                }, 1000);
+                setTimeout(function (){
+
+                    makeRequest("blueWallLed_turn_on", "#smartplanning", false )
+
+                }, 1000);
+
+                setTimeout(function (){
+                    $('#AllOn').find('span').remove();
+
+
+                }, 5000);
+
+                // alert("A");
+            });
+
+            $("#AllOff").click(function(){
+                $("#AllOff").append("<span id=\"on_activated\"  class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\" ></span>")
+
+                setTimeout(function (){
+
+                    makeRequest("downlights_turn_off",  "#downlights", true);
+
+                }, 1000);
+
+
+                setTimeout(function (){
+
+                makeRequest("lightShow_turn_off", "#lightshow", true);
+
+                }, 1000);
+
+                setTimeout(function (){
+
+                makeRequest("offR5to6", "#hybridfarming", true );
+
+                }, 1000);
+                setTimeout(function (){
+
+                makeRequest("offR1to4", "#smartmonitoring", true );
+
+                }, 1000);
+                setTimeout(function (){
+
+                makeRequest("blueWallLed_turn_off", "#smartplanning", true )
+
+                }, 1000);
+
+                setTimeout(function (){
+
+                    $('#AllOff').find('span').remove();
+
+                }, 5000);
+
+
+
+            });
+
+            function makeRequest(val, caller, state){
+                // alert("Called");
+                var $el = $(caller)
+                $.ajax({
+                        type:"POST",
+                        url: val,
+                        data: {
+                            'username': 'username',
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                        if (data.is_complete) {
+                            // alert("Here");
+                            if(state){
+                                setTimeout(function () {
+                                    $el.css("background", "#2e2d2c");
+                                }, 1500);
+                            }
+                            else{
+                                setTimeout(function () {
+                                    $el.css("background", "#878684");
+                                }, 1500);
+                                
+                            }
+                            
+                        }else{
+                            alert("Telnet service is down")
+                        }
+                        },
+                        error: function (response) {
+                                // alert the error if any error occured
+                                alert(response["responseJSON"]["error"]);
+                        }  
+                });
+            }
+
+            function changeColor(val, caller){
+                // alert("Called");
+                var $el = $(caller)
+                $.ajax({
+                        type:"POST",
+                        url: val,
+                        data: {
+                            'username': 'username',
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                        if (data.is_complete) {
+                            // alert("Here");
+                          
+                            
+                        }else{
+                            alert("Telnet service is down")
+                        }
+                        },
+                        error: function (response) {
+                                // alert the error if any error occured
+                                alert(response["responseJSON"]["error"]);
+                        }  
+                });
+            }
+            $.ajaxSetup({ 
+                beforeSend: function(xhr, settings) {
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie != '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                        // Only send the token to relative URLs i.e. locally.
+                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                    }
+                } 
+            });
+
+            $("#downlights").click(function(){
+                $("#downlights").effect( "shake", {times:4}, 1000 );
+
+                if(downlights_on){
+                    makeRequest("downlights_turn_off", "#downlights", downlights_on )
+                    downlights_on = false;
+                }
+                else {
+                    makeRequest("downlights_turn_on",  "#downlights", downlights_on );
+                    downlights_on = true;
+                }
+
+               
+                
+            });
+
+
+            $("#lightshow").click(function(){
+                $("#lightshow").effect( "shake", {times:4}, 1000 );
+
+                if(lightshow_on){
+                    
+                    makeRequest("lightShow_turn_off", "#lightshow", lightshow_on )
+                    lightshow_on = false;
+
+                }
+                else {
+                    makeRequest("lightShow_turn_on", "#lightshow", lightshow_on )
+                    lightshow_on = true;
+
+                }
+             
+
+            });
+            
+            $("#redLed").click(function(){
+                $("#redLed").effect( "shake", {times:4}, 1000 );
+
+                red_on = true;
+                
+                changeColor("ledColorRed", "#redLed")
+
+            });
+            $("#greenLed").click(function(){
+                $("#greenLed").effect( "shake", {times:4}, 1000 );
+
+                green_on = true
+                changeColor("ledColorGreen", "#greenLed")
+
+            });
+            $("#blueLed").click(function(){
+                $("#blueLed").effect( "shake", {times:4}, 1000 );
+
+                blue_on = true
+                changeColor("ledColorBlue", "#blueLed")
+
+            });
+            $("#pinkLed").click(function(){
+                $("#pinkLed").effect( "shake", {times:4}, 1000 );
+
+                pink_on = true
+                changeColor("ledColorPink", "#pinkLed")
+
+            });
+            $("#cyanLed").click(function(){
+                $("#cyanLed").effect( "shake", {times:4}, 1000 );
+
+                cyan_on = true
+                changeColor("ledColorCyan", "#cyanLed")
+            });
+            $("#yellowLed").click(function(){
+                $("#yellowLed").effect( "shake", {times:4}, 1000 );
+
+                yello_on = true
+                changeColor("ledColorYellow", "#yellowLed")
+            });
+            $("#purpleLed").click(function(){
+                $("#purpleLed").effect( "shake", {times:4}, 1000 );
+
+                purple_on = true
+                changeColor("ledColorPurple", "#purpleLed")
+            });
+            $("#whiteLed").click(function(){
+                $("#whiteLed").effect( "shake", {times:4}, 1000 );
+
+                white_on = true
+                changeColor("ledColorWhite", "#whiteLed")
+            });
+
+
+            $("#hybridfarming").click(function(){
+                // hybridfarming is row5to6
+                
+                $("#hybridfarming").effect( "shake", {times:4}, 1000 );
+
+                if(hybridfarming_on){
+                    
+                    makeRequest("offR5to6", "#hybridfarming", hybridfarming_on )
+                    hybridfarming_on = false;
+
+                }
+                else {
+                    makeRequest("onR5to6", "#hybridfarming", hybridfarming_on )
+                    hybridfarming_on = true;
+
+                }
+             
+
+            });
+
+            $("#smartmonitoring").click(function(){
+                // smartmonitoring is row1to2
+                // alert("a");
+                $("#smartmonitoring").effect( "shake", {times:4}, 1000 );
+                // alert("b");
+
+                if(smartmonitoring_on){
+                    
+                    makeRequest("offR1to4", "#smartmonitoring", smartmonitoring_on )
+                    smartmonitoring_on = false;
+
+                }
+                else {
+                    makeRequest("onR1to4", "#smartmonitoring", smartmonitoring_on )
+                    smartmonitoring_on = true;
+
+                }
+             
+
+            });
+
+            $("#smartplanning").click(function(){
+                // smartmonitoring is row1to2
+                
+                $("#smartplanning").effect( "shake", {times:4}, 1000 );
+
+                if(smartplanning_on){
+                    
+                    makeRequest("blueWallLed_turn_off", "#smartplanning", smartplanning_on )
+                    smartplanning_on = false;
+                }
+                else {
+                    makeRequest("blueWallLed_turn_on", "#smartplanning", smartplanning_on )
+                    smartplanning_on = true;
+                }
+                
+
+            });
+
+
+
+        });
+
+    
+    </script>
+    {% endblock javascript %}
+  </body>
